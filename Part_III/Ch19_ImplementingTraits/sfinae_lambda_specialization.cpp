@@ -42,6 +42,18 @@ constexpr auto is_default_constructible =
                                         // type extracted by decltype(value_t(x)) to idicate
                                         // that it is unused
 
+
+// we can use it to detect if any expression is valid
+constexpr auto has_first =
+    is_valid( [](auto x) -> decltype((void)(value_t(x).first)){ } );
+
+// optionally define an alias for more traditional use-syntax
+// template<typename T>
+// using has_first_t = decltype(has_first(type<T>));
+
+static_assert(has_first(type<std::pair<int,int>>), "has_first test failed");
+// static_assert(has_first_t<std::pair<int,int>>, "has_first_t test failed");
+
 int main()
 {
     std::cout << std::boolalpha;
