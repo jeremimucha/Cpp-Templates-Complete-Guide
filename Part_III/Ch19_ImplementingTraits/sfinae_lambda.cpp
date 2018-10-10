@@ -2,6 +2,7 @@
 #include <utility>
 
 
+// -------------------------------- SFINAE function overloading -----------------------------------
 // helper: checking validity of f(args...) for F f and Args... args:
 template<typename F, typename... Args,
          typename = decltype(std::declval<F>()(std::declval<Args&&>()...))>
@@ -18,7 +19,6 @@ inline constexpr auto is_valid =
             return decltype(is_valid_impl<decltype(f), decltype(args)&&...>(nullptr)){};
         };
     };
-
 
 // helper template to represent a type as a value
 template<typename T>
