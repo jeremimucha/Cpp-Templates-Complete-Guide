@@ -8,7 +8,7 @@ template<bool Cond, typename TrueType, typename FalseType>
 struct if_then_else { using type = TrueType; };
 
 template<typename TrueType, typename FalseType>
-struct if_then_else { using type = FalseType; };
+struct if_then_else<false,TrueType,FalseType> { using type = FalseType; };
 
 template<bool C, typename T, typename F>
 using if_then_else_t = typename if_then_else<C,T,F>::type;
