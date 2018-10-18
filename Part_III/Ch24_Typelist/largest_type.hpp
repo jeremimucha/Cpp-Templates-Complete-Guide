@@ -40,3 +40,45 @@ using lst3 = typelist<int, double, char>;
 static_assert(std::is_same_v<largest_type_t<lst3>,double>);
 
 } // namespace unit_test_largest_type
+
+
+namespace largest_type_alt_impl
+{
+
+template<typename List> struct largest_type_impl;
+
+template<template<typename...>class List, typename T, typename... Ts>
+struct largest_type_impl<List<T,Ts...>>
+{
+private:
+    using tail = typename largest_type_impl<List<Ts...>>::type;
+public:
+    using type = std::conditional_t<sizeof(T) >= sizeof(tail), T, tail>;
+};
+
+template<template<typename...>class List, typename T>
+struct largest_type_impl<List<T>>
+{
+    using type = T;
+};
+
+template<template<typename...>class List>
+struct largest_type_impl<List<>>
+{
+    using type = char;
+};
+
+template<typename List>
+struct largest_type : largest_type_impl<List> { };
+
+template<typename List>
+using largest_type_t = typename largest_type<List>::type;
+
+using lst0 = typelist<>;
+static_assert(std::is_same_v<largest_type_t<lst0>,char>);
+using lst1 = typelist<void*>;
+static_assert(std::is_same_v<largest_type_t<lst1>,void*>);
+using lst3 = typelist<int, double, char>;
+static_assert(std::is_same_v<largest_type_t<lst3>,double>);
+
+} // largest_type_alternative_impl

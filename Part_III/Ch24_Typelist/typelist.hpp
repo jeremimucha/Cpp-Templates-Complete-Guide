@@ -61,6 +61,14 @@ struct push_front : push_front_impl<List, Ts...> { };
 template<typename List, typename... Ts>
 using push_front_t = typename push_front_impl<List,Ts...>::type;
 
+namespace a
+{
+    template<typename List, typename T>
+    struct push_front : push_front_impl<List, T> { };
+
+    template<typename List, typename T>
+    using push_front_t = typename push_front_impl<List,T>::type;
+}
 
 // push_back
 template<typename L, typename... Ts> struct push_back_impl;
@@ -85,6 +93,11 @@ template<typename L> struct pop_front_impl;
 template<template<class...> class C, typename T, typename... Ts>
 struct pop_front_impl<C<T,Ts...>> {
     using type = C<Ts...>;
+};
+
+template<template<typename...>class C>
+struct pop_front_impl<C<>> {
+    using type = C<>;
 };
 
 template<typename List>
