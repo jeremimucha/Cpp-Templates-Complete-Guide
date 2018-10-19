@@ -33,6 +33,9 @@ template<typename> struct front_impl;
 template<template<class...> class C, typename T, typename... Ts>
 struct front_impl<C<T, Ts...>> { using type = T; };
 
+template<template<typename...>class C>
+struct front_impl<C<>> {};
+
 // public interface
 
 template<typename List>

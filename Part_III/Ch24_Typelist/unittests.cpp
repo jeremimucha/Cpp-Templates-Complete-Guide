@@ -6,6 +6,7 @@
 #include "pop_back.hpp"
 #include "transform.hpp"
 #include "accumulate.hpp"
+#include "insertion_sort.hpp"
 
 
 int main()
