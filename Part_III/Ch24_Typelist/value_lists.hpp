@@ -2,6 +2,7 @@
 #include "typelist.hpp"
 #include "is_empty.hpp"
 #include "accumulate.hpp"
+#include "insertion_sort.hpp"
 
 
 // `compili-time-value` - essentially std::integral_constant
