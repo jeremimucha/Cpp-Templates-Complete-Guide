@@ -76,7 +76,7 @@ struct MetafunOfNthElement
 {
     template<typename T, typename U> struct apply;
 
-    template<unsigned N, unsigned M>
+    template<unsigned M, unsigned N>
     struct apply<ct_value<unsigned,M>, ct_value<unsigned,N>>
         : F<nth_element_t<List,M>, nth_element_t<List,N>> { };
 };

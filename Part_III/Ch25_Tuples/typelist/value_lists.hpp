@@ -10,7 +10,7 @@ template<typename T, T Value>
 struct ct_value
 {
     using value_type = T;
-    using type = ct_value; 
+    using type = ct_value;
     static constexpr inline value_type value = Value;
     constexpr inline value_type operator()() const noexcept { return value; }
     constexpr inline operator value_type() const noexcept { return value; }
@@ -21,7 +21,7 @@ namespace simple_usage
 {
 
 // using the above definition we can define lists of compiletime-values
-using Primes = typelist<ct_value<int,2>, ct_value<int,3>, 
+using Primes = typelist<ct_value<int,2>, ct_value<int,3>,
                         ct_value<int,5>, ct_value<int,7>,
                         ct_value<int,11>>;
 
