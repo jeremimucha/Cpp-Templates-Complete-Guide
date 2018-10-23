@@ -93,3 +93,28 @@ auto sort(Tuple<Elements...> const& tup)
 }
 
 /* --------------------------------------------------------------------------------------------- */
+
+
+// apply - expanding a tuple
+/* --------------------------------------------------------------------------------------------- */
+template<typename> struct tupleSize_impl;
+template<template<typename...>class T, typename... Ts>
+struct tupleSize_impl<T<Ts...>> { static constexpr inline auto value = sizeof...(Ts); };
+template<typename T>
+constexpr inline auto tupleSize{tupleSize_impl<T>::value};
+
+template<typename F, typename Tup, unsigned... Indices>
+constexpr auto apply_impl(F&& f, Tup&& tup, valuelist<unsigned, Indices...>)
+{
+    return std::forward<F>(f)(get<Indices>(std::forward<Tup>(tup))...);
+}
+
+template<typename F, typename Tup>
+constexpr auto apply(F&& f, Tup&& tup)
+{
+    using Indices = make_index_list<tupleSize<Tup>>;
+    return apply_impl(std::forward<F>(f), tup, Indices{});
+}
+
+static_assert(tupleSize<Tuple<int,double,char>> == 3);
+/* --------------------------------------------------------------------------------------------- */
