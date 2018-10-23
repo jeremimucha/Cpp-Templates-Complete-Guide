@@ -75,6 +75,11 @@ struct TupleGet<0> {
     }
 };
 
+template<unsigned N, typename... Types>
+auto get(Tuple<Types...> const& t) {
+    return TupleGet<N>::apply(t);
+}
+
 
 // element type deduction
 template<typename... Types>

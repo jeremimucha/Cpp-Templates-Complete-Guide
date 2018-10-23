@@ -1,6 +1,6 @@
 #pragma once
 #include "basic_tuple.hpp"
-#include <ostream>
+#include <iostream>
 
 void printTuple(std::ostream& strm, Tuple<> const&, bool isFirst = true)
 {
@@ -11,7 +11,7 @@ template<typename Head, typename... Tail>
 void printTuple(std::ostream& strm, Tuple<Head, Tail...> const& t, bool isFirst = true)
 {
     strm << ( isFirst ? "(" : ", " );
-    strm < t.getHead();
+    strm << t.getHead();
     printTuple(strm, t.getTail(), false);
 }
 
