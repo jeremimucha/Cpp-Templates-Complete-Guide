@@ -41,6 +41,10 @@ public:
     Tuple(Tuple<VHead,VTail...> const& other)
         : head_{other.getHead()}, tail_{other.getTail()} { }
 
+    template<typename T, typename... VTuple>
+    Tuple(T&& t, Tuple<VTuple...> const& tup)
+        : head_{std::forward<T>(t)}, tail_{tup} { }
+
     Head& getHead() { return head_; }
     Head const& getHead() const { return head_; }
     Tuple<Tail...>& getTail() { return tail_; }
