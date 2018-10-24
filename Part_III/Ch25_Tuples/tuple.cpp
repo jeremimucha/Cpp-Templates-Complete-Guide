@@ -26,3 +26,24 @@ int main()
 {
     testTupleSort();
 }
+
+template<typename> struct largest_type_impl;
+
+template<template<typename...>class List, typename T, typename... Ts>
+struct largest_type_impl<List<T,Ts...>>
+    : std::conditional<sizeof(T) > sizeof(largest_type_impl<List<Ts...>),
+                       T,
+                       largest_type_impl<List<Ts...>>
+                       >
+{
+};
+
+template<template<typename...>class List, typename T>
+struct largest_type_impl<List<T>> { using type = T; };
+template<template<typename...>class List>
+struct largest_type_impl<List<>> { using type = char; };
+
+template<typename T>
+struct largest_type : largest_type_impl<T> {};
+template<typename T>
+using largest_type_t = typename largest_type_impl<T>::type;
