@@ -132,6 +132,8 @@ namespace tuple_EBCO_fourth
 
 namespace tuple_get_optimization
 {
+    // This must be declared a friend of Tuple to allow the conversion to the private
+    // base class.
     template<unsigned H, typename T>
     T& getHeight(TupleElement<H,T>& te)
     {
@@ -140,6 +142,8 @@ namespace tuple_get_optimization
 
     template<typename...> class Tuple;
 
+// Since we want to pass an `index` of the desired element (counting from 0), while the tuple's
+// actual storage counts in terms of `height` (counting from sizeof...(Elements)-1)
     template<unsigned I, typename... Elements>
     auto get(Tuple<Elements...>& t) -> decltype(getHeight<sizeof...(Elements)-I-1>(t))
     {
