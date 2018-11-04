@@ -92,5 +92,6 @@ auto VariantChoice<T,Types...>::operator= (T&& value) -> Derived&
         new(getDerived().getRawBuffer()) T{std::move(value)};
         getDerived().setDiscriminator(Discriminator);
     }
+    return getDerived();
 }
 /* --------------------------------------------------------------------------------------------- */
